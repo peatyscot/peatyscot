@@ -1,0 +1,42 @@
+{{ define "main" }}
+<div class="prose">
+  <header class="page-head">
+    <h1>{{ .Title }}</h1>
+    {{ with .Description }}<p class="lede">{{ . }}</p>{{ end }}
+  </header>
+  {{ .Content }}
+</div>
+
+<div class="explore" data-explore>
+  <form class="filters" role="search" aria-label="Filter whiskies">
+    <label class="field">
+      <span>Search</span>
+      <input type="search" id="q" placeholder="Name, distillery, flavour…" autocomplete="off">
+    </label>
+    <label class="field">
+      <span>Kind</span>
+      <select id="f-kind"><option value="">Any</option></select>
+    </label>
+    <label class="field">
+      <span>Country</span>
+      <select id="f-country"><option value="">Any</option></select>
+    </label>
+    <label class="field">
+      <span>Region</span>
+      <select id="f-region"><option value="">Any</option></select>
+    </label>
+    <label class="field">
+      <span>Flavour</span>
+      <select id="f-flavour"><option value="">Any</option></select>
+    </label>
+    <button type="button" id="f-reset" class="btn btn-ghost">Reset</button>
+  </form>
+
+  <p class="result-count" id="result-count" aria-live="polite"></p>
+  <ul class="card-grid" id="results"></ul>
+  <noscript><p class="lede">Filtering needs JavaScript. Browse
+    <a href="{{ "/whiskies/" | relURL }}">whiskies</a> or
+    <a href="{{ "/distilleries/" | relURL }}">distilleries</a> instead.</p></noscript>
+</div>
+{{ partial "ad-slot.html" (dict "ctx" . "slot" "in-article") }}
+{{ end }}

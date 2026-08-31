@@ -1,0 +1,21 @@
+{{/*
+  Inverted index of internal links: target RelPermalink -> pages linking to it.
+
+  Built ONCE for the whole site and reused via partialCached. Do not inline this
+  scan into a page template: scanning every page for every page is O(n^2) and
+  exceeded 120s at 5,000 pages during the stack spike. This form does 5,000
+  pages in ~8s.
+*/}}
+{{ $s := newScratch }}
+{{ range .Site.Pages }}
+  {{ $src := . }}
+  {{ if $src.Content }}
+    {{ range findRESubmatch `href="(/[^"#?]*)"` $src.Content }}
+      {{ $target := index . 1 }}
+      {{ if ne $target $src.RelPermalink }}
+        {{ $s.Add (printf "bl%s" $target) (slice $src) }}
+      {{ end }}
+    {{ end }}
+  {{ end }}
+{{ end }}
+{{ return $s }}

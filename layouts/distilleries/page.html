@@ -1,0 +1,41 @@
+{{ define "main" }}
+{{ $slug := path.Base .Path }}
+<article class="prose entity">
+  <header class="page-head">
+    <p class="eyebrow">
+      {{ with .Params.region }}<a href="{{ (printf "/regions/%s/" .) | relURL }}">{{ humanize . }}</a> · {{ end }}
+      {{ with .Params.country }}<a href="{{ (printf "/countries/%s/" .) | relURL }}">{{ humanize . }}</a>{{ end }}
+    </p>
+    <h1>{{ .Title }}</h1>
+    {{ with .Description }}<p class="lede">{{ . }}</p>{{ end }}
+    {{ partial "flavour-tags.html" . }}
+    {{ partial "page-meta.html" . }}
+  </header>
+
+  {{ partial "facts.html" (dict "title" "The distillery" "rows" (slice
+      (dict "label" "Founded"  "value" .Params.founded)
+      (dict "label" "Owner"    "value" .Params.owner)
+      (dict "label" "Region"   "value" (humanize (.Params.region | default "")) "href" (partial "href.html" (printf "/regions/%s" (.Params.region | default ""))))
+      (dict "label" "Country"  "value" (humanize (.Params.country | default "")) "href" (partial "href.html" (printf "/countries/%s" (.Params.country | default ""))))
+      (dict "label" "Status"   "value" (humanize (.Params.status | default "")))
+      (dict "label" "Peat"     "value" (humanize (.Params.peat_level | default "")))
+      (dict "label" "Malt spec" "value" (cond .Params.phenol_ppm_malt (printf "~%v ppm phenols" .Params.phenol_ppm_malt) "") "note" "malt, not bottle")
+      (dict "label" "Website"  "value" .Params.website "href" .Params.website)
+  )) }}
+
+  {{ .Content }}
+
+  {{ $bottlings := where .Site.RegularPages "Params.distillery" $slug }}
+  {{ with $bottlings }}
+    <section class="listing">
+      <h2>Bottlings</h2>
+      <ul class="card-grid">{{ range . }}{{ partial "card.html" . }}{{ end }}</ul>
+    </section>
+  {{ end }}
+
+  {{ partial "ad-slot.html" (dict "ctx" . "slot" "in-article") }}
+  {{ partial "sources.html" . }}
+  {{ partial "related.html" . }}
+  {{ partial "backlinks.html" . }}
+</article>
+{{ end }}

@@ -1,0 +1,51 @@
+{{ define "main" }}
+<section class="hero">
+  <h1>Whiskies of the world,<br><em>properly cross-referenced.</em></h1>
+  <p class="lede">{{ .Content | plainify | truncate 400 }}</p>
+  <p class="hero-cta">
+    <a class="btn" href="{{ "/explore/" | relURL }}">Explore the collection</a>
+    <a class="btn btn-ghost" href="{{ "/guides/what-makes-a-whisky-peaty/" | relURL }}">What makes a whisky peaty?</a>
+  </p>
+</section>
+
+<section class="listing">
+  <h2>Start with a flavour</h2>
+  <ul class="card-grid">
+    {{ range (.Site.Taxonomies.flavours.ByCount) }}
+      {{ with .Page }}
+      <li class="card">
+        <a href="{{ .RelPermalink }}">
+          <span class="card-kind">flavour</span>
+          <span class="card-title">{{ .Title }}</span>
+          <span class="card-meta">{{ len .Pages }} {{ cond (eq (len .Pages) 1) "entry" "entries" }}</span>
+          {{ with .Description }}<span class="card-desc">{{ . }}</span>{{ end }}
+        </a>
+      </li>
+      {{ end }}
+    {{ end }}
+  </ul>
+</section>
+
+{{ partial "ad-slot.html" (dict "ctx" . "slot" "in-article") }}
+
+<section class="listing">
+  <h2>Distilleries</h2>
+  <ul class="card-grid">
+    {{ range (where .Site.RegularPages "Section" "distilleries") }}{{ partial "card.html" . }}{{ end }}
+  </ul>
+</section>
+
+<section class="listing">
+  <h2>Whiskies</h2>
+  <ul class="card-grid">
+    {{ range (where .Site.RegularPages "Section" "whiskies") }}{{ partial "card.html" . }}{{ end }}
+  </ul>
+</section>
+
+<section class="listing">
+  <h2>Understand the vocabulary</h2>
+  <ul class="card-grid">
+    {{ range (where .Site.RegularPages "Section" "glossary") }}{{ partial "card.html" . }}{{ end }}
+  </ul>
+</section>
+{{ end }}

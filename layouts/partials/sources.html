@@ -1,0 +1,13 @@
+{{ with .Params.sources }}
+  <section class="sources" aria-labelledby="sources-h">
+    <h2 id="sources-h">Sources</h2>
+    <ol>
+      {{ range . }}
+        <li>
+          <a href="{{ .url }}" rel="nofollow noopener" target="_blank">{{ .title }}</a>
+          {{ with .accessed }}<span class="accessed">accessed {{ . }}</span>{{ end }}
+        </li>
+      {{ end }}
+    </ol>
+  </section>
+{{ end }}

@@ -41,12 +41,14 @@ Hugo does not do two things this project needs, so a thin Node layer covers them
 ## Layout
 
 ```
-content/        entity pages (Markdown + YAML front matter) — the source of truth
-layouts/        Hugo templates
-assets/         SCSS and JS, processed by Hugo Pipes
-static/         files copied verbatim (robots.txt, ads.txt)
-tools/validate/ Zod schema validation over front matter
-public/         build output (gitignored)
+content/         entity pages (Markdown + YAML front matter) — the source of truth
+layouts/         Hugo templates
+assets/          CSS and JS, fingerprinted by Hugo Pipes
+static/          files copied verbatim (robots.txt)
+worker/          Cloudflare Worker: www->apex redirect, cache + security headers
+tools/validate/  Zod schema, referential integrity, link-graph lints
+tools/linkcheck/ offline link check over the built HTML
+public/          build output (gitignored)
 ```
 
 ## URL structure
@@ -70,8 +72,14 @@ The wiki character of the site is enforced, not hoped for:
 - Every page renders a *What links here* section from the computed backlink index.
 - Typed relations are automatic: distillery → its bottlings and region; bottling →
   distillery, region, and nearest neighbours by shared flavour tags.
-- Build lints reject orphan pages, duplicate slugs, missing meta descriptions, missing
-  citations, and pages with fewer than five outbound internal links.
+- Build lints reject duplicate slugs, missing or badly sized meta descriptions, missing
+  citations, unresolvable front-matter references, and pages with fewer than five outbound
+  internal links. Orphan pages (nothing links in) are reported as warnings, since a page
+  can legitimately land before the pages that will reference it.
+- Utility and legal pages — `about/` and `/explore` — are exempt from the link-density
+  floor. Forcing five cross-links into a privacy policy produces padding, not navigation.
+- `relref` only guards links written in prose. Hrefs built inside templates bypass it, so
+  `tools/linkcheck` re-resolves every href in the built HTML against real files.
 
 ## Content integrity
 

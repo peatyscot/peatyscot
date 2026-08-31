@@ -1,0 +1,20 @@
+{{/* Renders the structured facts table for an entity page. */}}
+{{ $rows := .rows }}
+{{ $title := .title | default "Facts" }}
+{{ $any := false }}
+{{ range $rows }}{{ if .value }}{{ $any = true }}{{ end }}{{ end }}
+{{ if $any }}
+<div class="facts">
+  <h2 class="facts-h">{{ $title }}</h2>
+  <dl>
+    {{ range $rows }}
+      {{ if .value }}
+        <div class="fact">
+          <dt>{{ .label }}</dt>
+          <dd>{{ if .href }}<a href="{{ .href }}">{{ .value }}</a>{{ else }}{{ .value }}{{ end }}{{ with .note }} <span class="fact-note">{{ . }}</span>{{ end }}</dd>
+        </div>
+      {{ end }}
+    {{ end }}
+  </dl>
+</div>
+{{ end }}

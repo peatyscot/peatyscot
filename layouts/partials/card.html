@@ -1,0 +1,8 @@
+<li class="card">
+  <a href="{{ .RelPermalink }}">
+    <span class="card-kind">{{ with .Section }}{{ . }}{{ else }}{{ .Kind }}{{ end }}</span>
+    <span class="card-title">{{ .Title }}</span>
+    {{ with .Params.abv }}<span class="card-meta">{{ . }}% ABV{{ with $.Params.age_statement }} · {{ . }} yo{{ end }}</span>{{ end }}
+    {{ with .Description }}<span class="card-desc">{{ . }}</span>{{ end }}
+  </a>
+</li>

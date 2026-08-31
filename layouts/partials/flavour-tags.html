@@ -1,0 +1,7 @@
+{{ with .Params.flavours }}
+  <ul class="tags" aria-label="Flavour tags">
+    {{ range . }}
+      <li><a class="tag" href="{{ (printf "/flavours/%s/" (. | urlize)) | relURL }}">{{ humanize . }}</a></li>
+    {{ end }}
+  </ul>
+{{ end }}

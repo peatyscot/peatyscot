@@ -1,0 +1,50 @@
+baseURL = "https://peaty.scot/"
+languageCode = "en-GB"
+title = "Peaty"
+copyright = "peaty.scot"
+
+# A broken internal link must break the build, not ship.
+refLinksErrorLevel = "ERROR"
+refLinksNotFoundURL = "/404.html"
+
+enableRobotsTXT = false
+enableEmoji = false
+summaryLength = 30
+
+[pagination]
+  pagerSize = 24
+
+[taxonomies]
+  flavour = "flavours"
+
+[outputs]
+  home = ["html", "rss", "sitemap", "json"]
+
+[related]
+  threshold = 20
+  includeNewer = true
+  toLower = true
+  [[related.indices]]
+    name = "flavours"
+    weight = 100
+  [[related.indices]]
+    name = "region"
+    weight = 40
+    type = "basic"
+  [[related.indices]]
+    name = "country"
+    weight = 10
+    type = "basic"
+
+[markup]
+  [markup.goldmark.renderer]
+    unsafe = true
+  [markup.highlight]
+    noClasses = false
+
+[params]
+  description = "A reference for exploring the whiskies of the world."
+  # Ads are built but inert. Set enabled=true and a publisherId to activate.
+  [params.ads]
+    enabled = false
+    publisherId = ""

@@ -1,0 +1,15 @@
+{{ $idx := partialCached "backlink-index.html" . "GLOBAL" }}
+{{ $links := $idx.Get (printf "bl%s" .RelPermalink) }}
+{{ with $links }}
+  {{ $uniq := uniq . }}
+  <section class="backlinks" aria-labelledby="what-links-here">
+    <h2 id="what-links-here">What links here</h2>
+    <ul class="link-list">
+      {{ range sort $uniq "Title" }}
+        <li><a href="{{ .RelPermalink }}">{{ .Title }}</a>
+          <span class="link-kind">{{ with .Section }}{{ . }}{{ else }}{{ .Kind }}{{ end }}</span>
+        </li>
+      {{ end }}
+    </ul>
+  </section>
+{{ end }}

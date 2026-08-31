@@ -1,0 +1,21 @@
+{{ define "main" }}
+<div class="prose">
+  <header class="page-head">
+    <h1>{{ .Title }}</h1>
+    {{ with .Description }}<p class="lede">{{ . }}</p>{{ end }}
+  </header>
+  {{ .Content }}
+</div>
+<ul class="card-grid">
+  {{ range .Pages }}
+    <li class="card">
+      <a href="{{ .RelPermalink }}">
+        <span class="card-kind">flavour</span>
+        <span class="card-title">{{ .Title }}</span>
+        <span class="card-meta">{{ len .Pages }} {{ cond (eq (len .Pages) 1) "entry" "entries" }}</span>
+        {{ with .Description }}<span class="card-desc">{{ . }}</span>{{ end }}
+      </a>
+    </li>
+  {{ end }}
+</ul>
+{{ end }}

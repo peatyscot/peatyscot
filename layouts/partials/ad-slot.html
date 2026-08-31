@@ -1,0 +1,18 @@
+{{/*
+  Ad slots are built but inert until params.ads.enabled. The container reserves
+  its height either way, so switching ads on causes no layout shift.
+  Usage: {{ partial "ad-slot.html" (dict "ctx" . "slot" "in-article") }}
+*/}}
+{{ $slot := .slot | default "in-article" }}
+{{ $ctx := .ctx }}
+<aside class="ad-slot ad-{{ $slot }}" aria-label="Advertisement">
+  {{ if $ctx.Site.Params.ads.enabled }}
+    <span class="ad-label">Advertisement</span>
+    <ins class="adsbygoogle"
+         style="display:block"
+         data-ad-client="{{ $ctx.Site.Params.ads.publisherId }}"
+         data-ad-format="auto"
+         data-full-width-responsive="true"></ins>
+    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+  {{ end }}
+</aside>

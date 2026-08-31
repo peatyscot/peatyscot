@@ -1,0 +1,50 @@
+{{ define "main" }}
+<article class="prose entity">
+  <header class="page-head">
+    <p class="eyebrow">
+      {{ with .Params.distillery }}<a href="{{ (printf "/distilleries/%s/" .) | relURL }}">{{ humanize . }}</a> · {{ end }}
+      {{ .Params.category | default "Whisky" }}
+    </p>
+    <h1>{{ .Title }}</h1>
+    {{ with .Description }}<p class="lede">{{ . }}</p>{{ end }}
+    {{ partial "flavour-tags.html" . }}
+    {{ partial "page-meta.html" . }}
+  </header>
+
+  {{ $age := "" }}
+  {{ with .Params.age_statement }}{{ $age = printf "%v years old" . }}{{ end }}
+  {{ $dist := .Params.distillery | default "" }}
+  {{ $reg  := .Params.region | default "" }}
+  {{ $ctry := .Params.country | default "" }}
+  {{ partial "facts.html" (dict "title" "The bottle" "rows" (slice
+      (dict "label" "Distillery" "value" (humanize $dist) "href" (partial "href.html" (printf "/distilleries/%s" $dist)))
+      (dict "label" "Region"     "value" (humanize $reg)  "href" (partial "href.html" (printf "/regions/%s" $reg)))
+      (dict "label" "Country"    "value" (humanize $ctry) "href" (partial "href.html" (printf "/countries/%s" $ctry)))
+      (dict "label" "Category"   "value" .Params.category)
+      (dict "label" "Age"        "value" (cond (ne $age "") $age "No age statement"))
+      (dict "label" "Strength"   "value" (cond (ne (.Params.abv | default 0.0) 0.0) (printf "%v%% ABV" .Params.abv) ""))
+      (dict "label" "Bottle"     "value" (cond (ne (.Params.size_ml | default 0) 0) (printf "%v ml" .Params.size_ml) ""))
+      (dict "label" "Casks"      "value" (delimit (.Params.cask_types | default slice) ", " " and "))
+      (dict "label" "Peat"       "value" (humanize (.Params.peat_level | default "")))
+      (dict "label" "Chill filtered"  "value" (partial "disclosure.html" .Params.chill_filtered))
+      (dict "label" "Colouring added" "value" (partial "disclosure.html" .Params.colouring_added))
+  )) }}
+
+  {{ .Content }}
+
+  {{ partial "ad-slot.html" (dict "ctx" . "slot" "in-article") }}
+
+  {{ with .Params.offers }}
+    <section class="offers">
+      <h2>Where to buy</h2>
+      <p class="disclosure-note">Some links may earn a commission. See
+        <a href="{{ "/about/affiliate-disclosure/" | relURL }}">affiliate disclosure</a>.</p>
+      <ul>{{ range . }}<li><a href="{{ .url }}" rel="nofollow sponsored noopener">{{ .retailer }}</a> — {{ .price }} {{ .currency }}</li>{{ end }}</ul>
+    </section>
+  {{ end }}
+
+  {{ partial "sources.html" . }}
+  {{ partial "related.html" . }}
+  {{ partial "backlinks.html" . }}
+</article>
+{{ end }}

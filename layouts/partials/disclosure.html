@@ -1,0 +1,7 @@
+{{/* Normalises a tri-state disclosure param (true / false / "undisclosed") to display text. */}}
+{{ $v := printf "%v" . }}
+{{ $out := "" }}
+{{ if eq $v "true" }}{{ $out = "Yes" }}
+{{ else if eq $v "false" }}{{ $out = "No" }}
+{{ else if eq $v "undisclosed" }}{{ $out = "Not disclosed" }}{{ end }}
+{{ return $out }}

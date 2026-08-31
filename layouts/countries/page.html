@@ -1,0 +1,34 @@
+{{ define "main" }}
+{{ $slug := path.Base .Path }}
+<article class="prose entity">
+  <header class="page-head">
+    <h1>{{ .Title }}</h1>
+    {{ with .Description }}<p class="lede">{{ . }}</p>{{ end }}
+    {{ partial "page-meta.html" . }}
+  </header>
+
+  {{ partial "facts.html" (dict "title" "The rules" "rows" (slice
+      (dict "label" "Protected name"     "value" .Params.spirit_name)
+      (dict "label" "Minimum maturation" "value" (cond .Params.min_maturation_years (printf "%v years" .Params.min_maturation_years) ""))
+      (dict "label" "Minimum strength"   "value" (cond .Params.min_bottling_abv (printf "%v%% ABV" .Params.min_bottling_abv) ""))
+      (dict "label" "Colouring permitted" "value" (partial "disclosure.html" .Params.colouring_permitted))
+      (dict "label" "Distilleries"       "value" (cond .Params.distilleries_count_approx (printf "~%v" .Params.distilleries_count_approx) ""))
+  )) }}
+
+  {{ .Content }}
+
+  {{ $in := where .Site.RegularPages "Params.country" $slug }}
+  {{ with where $in "Section" "regions" }}
+    <section class="listing"><h2>Regions</h2>
+      <ul class="card-grid">{{ range . }}{{ partial "card.html" . }}{{ end }}</ul></section>
+  {{ end }}
+  {{ with where $in "Section" "distilleries" }}
+    <section class="listing"><h2>Distilleries</h2>
+      <ul class="card-grid">{{ range . }}{{ partial "card.html" . }}{{ end }}</ul></section>
+  {{ end }}
+
+  {{ partial "ad-slot.html" (dict "ctx" . "slot" "in-article") }}
+  {{ partial "sources.html" . }}
+  {{ partial "backlinks.html" . }}
+</article>
+{{ end }}

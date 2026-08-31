@@ -1,0 +1,15 @@
+{{ define "main" }}
+<article class="prose">
+  <header class="page-head">
+    <h1>{{ .Title }}</h1>
+    {{ with .Description }}<p class="lede">{{ . }}</p>{{ end }}
+    {{ partial "flavour-tags.html" . }}
+    {{ partial "page-meta.html" . }}
+  </header>
+  {{ .Content }}
+  {{ partial "ad-slot.html" (dict "ctx" . "slot" "in-article") }}
+  {{ partial "sources.html" . }}
+  {{ partial "related.html" . }}
+  {{ partial "backlinks.html" . }}
+</article>
+{{ end }}

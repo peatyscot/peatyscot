@@ -1,0 +1,12 @@
+{{/*
+  Resolves a content path to a URL only if that page actually exists.
+  Template-built hrefs bypass relref, so they are not covered by
+  refLinksErrorLevel — this keeps them from silently 404ing.
+  Returns "" when the target is missing or the slug is empty.
+*/}}
+{{ $out := "" }}
+{{ $path := . }}
+{{ if and $path (not (strings.HasSuffix $path "/")) }}
+  {{ with site.GetPage $path }}{{ $out = .RelPermalink }}{{ end }}
+{{ end }}
+{{ return $out }}

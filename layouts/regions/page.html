@@ -1,0 +1,35 @@
+{{ define "main" }}
+{{ $slug := path.Base .Path }}
+<article class="prose entity">
+  <header class="page-head">
+    <p class="eyebrow">{{ with .Params.country }}<a href="{{ (printf "/countries/%s/" .) | relURL }}">{{ humanize . }}</a>{{ end }}</p>
+    <h1>{{ .Title }}</h1>
+    {{ with .Description }}<p class="lede">{{ . }}</p>{{ end }}
+    {{ partial "flavour-tags.html" . }}
+    {{ partial "page-meta.html" . }}
+  </header>
+
+  {{ partial "facts.html" (dict "title" "The region" "rows" (slice
+      (dict "label" "Country"      "value" (humanize (.Params.country | default "")) "href" (partial "href.html" (printf "/countries/%s" (.Params.country | default ""))))
+      (dict "label" "Status"       "value" .Params.region_type)
+      (dict "label" "Distilleries" "value" (cond .Params.distilleries_count_approx (printf "~%v" .Params.distilleries_count_approx) ""))
+      (dict "label" "Typical peat" "value" .Params.typical_peat_level)
+  )) }}
+
+  {{ .Content }}
+
+  {{ $dists := where .Site.RegularPages "Params.region" $slug }}
+  {{ with where $dists "Section" "distilleries" }}
+    <section class="listing"><h2>Distilleries</h2>
+      <ul class="card-grid">{{ range . }}{{ partial "card.html" . }}{{ end }}</ul></section>
+  {{ end }}
+  {{ with where $dists "Section" "whiskies" }}
+    <section class="listing"><h2>Whiskies</h2>
+      <ul class="card-grid">{{ range . }}{{ partial "card.html" . }}{{ end }}</ul></section>
+  {{ end }}
+
+  {{ partial "ad-slot.html" (dict "ctx" . "slot" "in-article") }}
+  {{ partial "sources.html" . }}
+  {{ partial "backlinks.html" . }}
+</article>
+{{ end }}

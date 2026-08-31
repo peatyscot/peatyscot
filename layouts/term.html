@@ -1,0 +1,18 @@
+{{ define "main" }}
+<article class="prose">
+  <header class="page-head">
+    <p class="eyebrow"><a href="{{ "/flavours/" | relURL }}">Flavour</a></p>
+    <h1>{{ .Title }}</h1>
+    {{ with .Description }}<p class="lede">{{ . }}</p>{{ end }}
+  </header>
+  {{ .Content }}
+</article>
+<section class="listing">
+  <h2>Tagged {{ lower .Title }}</h2>
+  <ul class="card-grid">{{ range .Paginator.Pages }}{{ partial "card.html" . }}{{ end }}</ul>
+  {{ partial "pagination.html" . }}
+</section>
+{{ partial "ad-slot.html" (dict "ctx" . "slot" "in-article") }}
+{{ partial "sources.html" . }}
+{{ partial "backlinks.html" . }}
+{{ end }}

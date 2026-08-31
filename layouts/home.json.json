@@ -1,0 +1,26 @@
+{{- $items := slice -}}
+{{- range .Site.RegularPages -}}
+  {{- if in (slice "whiskies" "distilleries" "regions" "countries" "glossary" "guides") .Section -}}
+    {{- $items = $items | append (dict
+        "title" .Title
+        "url" .RelPermalink
+        "kind" .Section
+        "desc" (.Description | default "")
+        "country" (.Params.country | default "")
+        "region" (.Params.region | default "")
+        "distillery" (.Params.distillery | default "")
+        "flavours" (.Params.flavours | default slice)
+        "abv" (.Params.abv | default 0)
+        "age" (.Params.age_statement | default 0)
+      ) -}}
+  {{- end -}}
+{{- end -}}
+{{- range .Site.Taxonomies.flavours -}}
+  {{- with .Page -}}
+    {{- $items = $items | append (dict
+        "title" .Title "url" .RelPermalink "kind" "flavours"
+        "desc" (.Description | default "") "country" "" "region" "" "distillery" ""
+        "flavours" slice "abv" 0 "age" 0) -}}
+  {{- end -}}
+{{- end -}}
+{{- $items | jsonify -}}

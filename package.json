@@ -1,0 +1,20 @@
+{
+  "name": "peatyscot",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "peaty.scot — whiskies of the world",
+  "scripts": {
+    "validate": "node tools/validate/index.mjs",
+    "dev": "hugo server -D --bind 0.0.0.0",
+    "build": "npm run validate && hugo --minify --destination public",
+    "linkcheck": "node tools/linkcheck/index.mjs",
+    "check": "npm run build && npm run linkcheck",
+    "deploy": "npm run check && wrangler deploy"
+  },
+  "devDependencies": {
+    "gray-matter": "^4.0.3",
+    "wrangler": "^4.127.1",
+    "zod": "^3.23.8"
+  }
+}

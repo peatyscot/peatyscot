@@ -1,0 +1,9 @@
+{{ $rel := first 4 (.Site.RegularPages.Related .) }}
+{{ with $rel }}
+  <section class="related" aria-labelledby="related-h">
+    <h2 id="related-h">Similar by flavour</h2>
+    <ul class="card-grid">
+      {{ range . }}{{ partial "card.html" . }}{{ end }}
+    </ul>
+  </section>
+{{ end }}
