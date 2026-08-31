@@ -83,6 +83,9 @@ validator fails if the referenced page does not exist.
 via `.ad-slot:empty`. Enabling ads needs a publisher ID, a privacy-policy update, and a
 certified consent CMP for EEA/UK traffic. Do not enable without all three.
 
+Procedure, Google-supplied data and the record of what was done: `docs/ads.md`. Update its
+ledgers in the same commit as the change they describe, not afterwards.
+
 ## Never
 
 - Never invent a tasting note, or present an aggregated note as personal experience.
