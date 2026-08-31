@@ -33,6 +33,8 @@
 }
 
 *, *::before, *::after { box-sizing: border-box; }
+/* `hidden` must beat any author display rule, or it silently does nothing. */
+[hidden] { display: none !important; }
 html { -webkit-text-size-adjust: 100%; }
 body {
   margin: 0;
