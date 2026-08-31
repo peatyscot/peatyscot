@@ -18,12 +18,12 @@
 
   "observability": {
     "enabled": true
-  }
+  },
 
-  // Custom domains are deliberately not configured here yet. Adding them
-  // creates DNS records on the live zone; see .claude/skills/deploy-peatyscot.
-  // "routes": [
-  //   { "pattern": "peaty.scot", "custom_domain": true },
-  //   { "pattern": "www.peaty.scot", "custom_domain": true }
-  // ]
+  // Both hosts are needed: www must resolve for the Worker's www -> apex
+  // redirect to be reachable at all. These create DNS records on the live zone.
+  "routes": [
+    { "pattern": "peaty.scot", "custom_domain": true },
+    { "pattern": "www.peaty.scot", "custom_domain": true }
+  ]
 }

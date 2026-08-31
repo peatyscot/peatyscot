@@ -35,6 +35,11 @@ curl -sS -o /dev/null -w '%{http_code}\n' http://127.0.0.1:8788/index.json  # 20
 Fingerprinted CSS/JS must return `Cache-Control: public, max-age=31536000, immutable`;
 HTML must return `max-age=0, must-revalidate`.
 
+**The www redirect cannot be tested locally once `routes` are configured.** `wrangler dev`
+rewrites `request.url` to the first route's hostname regardless of the `Host` header or
+`--resolve`, so the Worker always sees `peaty.scot` and never redirects. A 200 there is a
+dev artifact, not a regression — verify the redirect against production after deploying.
+
 To stop the dev server, **do not** run `pkill -f "wrangler dev"` — the pattern matches the
 killing shell's own command line and kills it. Match on the port or use the job's PID.
 
