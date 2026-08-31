@@ -44,7 +44,7 @@ summaryLength = 30
 
 [params]
   description = "A reference for exploring the whiskies of the world."
-  # Ads are built but inert. Set enabled=true and a publisherId to activate.
+  # Publisher ID recorded; slots stay inert until enabled=true. See docs/ads.md.
   [params.ads]
     enabled = false
-    publisherId = ""
+    publisherId = "ca-pub-9724395993136863"

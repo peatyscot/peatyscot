@@ -14,10 +14,16 @@ CMP. All three, or none.
 
 | | |
 |---|---|
-| **Current state** | **Not started.** No AdSense account exists. No Google-supplied value has been received. |
-| Code path | Built and inert. `params.ads.enabled = false` in `hugo.toml`. |
+| **Current state** | **Publisher ID issued.** An AdSense account exists and `ca-pub-9724395993136863` has been recorded. Review status not yet confirmed in this record — see the open question below. |
+| Code path | Built and inert. `params.ads.enabled = false` in `hugo.toml`. Publisher ID is set, which on its own renders nothing: both `head.html` and `ad-slot.html` gate on `enabled`. |
 | Ads served | None, in any region. |
+| Blocking before serving | Ad unit slot IDs (gap 1), contact route (gap 2), certified CMP (Phase 3), privacy rewrite (gap 4). |
 | Last reviewed | 2026-08-31 |
+
+**Open question, to be answered in this record:** the publisher ID alone does not say
+whether the site has been *submitted* for review or *approved* — AdSense issues the ID at
+signup, before either. Fill in the submission and approval dates in the changelog when
+known; do not infer approval from the ID existing.
 
 The site makes a written promise in `content/about/privacy.md` that this page will be
 updated *before* ads run, not afterwards. That constrains the order of operations in
@@ -36,8 +42,8 @@ blank rather than guessing.
 
 | Field | Format / example | Value | Where it is consumed |
 |---|---|---|---|
-| Publisher ID | `ca-pub-` + 16 digits | *(not yet issued)* | `hugo.toml` → `params.ads.publisherId`; emitted in `head.html` and `ad-slot.html` |
-| ads.txt seller line | `google.com, pub-<16 digits>, DIRECT, f08c47fec0942fa0` | *(not yet issued)* | `static/ads.txt` |
+| Publisher ID | `ca-pub-` + 16 digits | **`ca-pub-9724395993136863`** *(recorded 2026-08-31)* | `hugo.toml` → `params.ads.publisherId`; emitted in `head.html` and `ad-slot.html` |
+| ads.txt seller line | `google.com, pub-<16 digits>, DIRECT, f08c47fec0942fa0` | **`google.com, pub-9724395993136863, DIRECT, f08c47fec0942fa0`** *(recorded 2026-08-31)* | `static/ads.txt` |
 | TAG certification authority ID | `f08c47fec0942fa0` | `f08c47fec0942fa0` | ads.txt. This is Google's own ID and is **identical for every publisher** — it is not a secret and not per-account. |
 | Ad unit name — in-article | free text, chosen by us | *(not yet created)* | AdSense UI only |
 | Ad unit slot ID — in-article | 10 digits | *(not yet issued)* | `data-ad-slot` in `ad-slot.html` |
@@ -48,6 +54,12 @@ blank rather than guessing.
 | CMP vendor | name of chosen certified CMP | *(not yet chosen)* | — |
 | IAB TCF CMP ID | integer, assigned by IAB | *(not yet known)* | Recorded here only; the CMP emits it itself |
 | Privacy & messaging message ID | AdSense UI identifier | *(not yet created)* | Recorded here only |
+
+**The `ca-` prefix is not decorative.** The same account number appears in two forms and
+they are not interchangeable: `ca-pub-9724395993136863` in `hugo.toml` and in the
+`data-ad-client` attribute, but bare `pub-9724395993136863` in `ads.txt`. Writing
+`ca-pub-` into ads.txt makes the record invalid and Google will report the site as having
+no authorised seller.
 
 ### Sensitive — never record here, never commit
 
@@ -73,6 +85,9 @@ it is not.
 |---|---|---|
 | 2026-08-31 | Ad slot partial, page-level script tag, CSS reservation, and `params.ads` switch built in the inert state. No Google account, no publisher ID, nothing served. | `16b97b0` |
 | 2026-08-31 | This document written. Audit of the existing wiring found the gaps in the next section. | *(this commit)* |
+| 2026-08-31 | Publisher ID `ca-pub-9724395993136863` recorded in `hugo.toml`. `static/ads.txt` created with the seller line. `enabled` left `false` — nothing is served. Closes gap 3. | *(this commit)* |
+| | AdSense review submitted | *(date to be recorded)* |
+| | AdSense approval / policy status | *(date to be recorded)* |
 
 Concretely, what exists today:
 
@@ -116,10 +131,11 @@ for contact; `content/about/_index.md` gives no address. That is a circular dead
 AdSense review looks for a way to reach the publisher, and a reader who spots an error
 currently has none either. Add a real address to `/about`.
 
-**3. There is no `ads.txt`.** Google requires `https://peaty.scot/ads.txt` to list
-AdSense as an authorised seller. Its absence does not block approval, but AdSense will
-flag earnings at risk. Create `static/ads.txt`; Hugo copies `static/` to `public/`
-verbatim, and the Worker serves it from the `ASSETS` binding with no extra routing.
+**3. ~~There is no `ads.txt`.~~ Closed 2026-08-31.** `static/ads.txt` now carries the
+seller line. Hugo copies `static/` to `public/` verbatim and the Worker serves it from the
+`ASSETS` binding with no extra routing, so it needs no template or route. It is not yet
+live — it reaches `https://peaty.scot/ads.txt` on the next deploy, and Google can only
+see it once deployed.
 
 **4. The privacy page is written in the future tense.** `content/about/privacy.md` says
 "No advertising is currently served" and undertakes to update the page *before* ads run.
