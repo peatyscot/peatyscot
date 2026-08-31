@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="peaty.scot">
+  <defs>
+    <radialGradient id="dram" cx="34%" cy="32%" r="72%">
+      <stop offset="0" stop-color="#f0b06a"/>
+      <stop offset=".55" stop-color="#d98a4a"/>
+      <stop offset="1" stop-color="#a4581a"/>
+    </radialGradient>
+  </defs>
+  <rect width="64" height="64" rx="14" fill="#1a1512"/>
+  <circle cx="32" cy="33.3" r="19.2" fill="url(#dram)"/>
+  <ellipse cx="25.5" cy="26" rx="5.8" ry="5" fill="#ffe2be" opacity=".85"/>
+</svg>
