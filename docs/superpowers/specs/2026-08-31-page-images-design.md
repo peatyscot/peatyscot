@@ -125,9 +125,9 @@ Cards are generated *after* Hugo, straight into `public/`, so `linkcheck` sees
 real files. They are not routed through Hugo Pipes: they are already exactly
 1200×630 and re-processing 5,000 of them would add minutes for nothing.
 
-### The extension coupling
+### Card URLs have exactly one definition
 
-Hugo renders `og:image` before the cards exist, so the URL must be predictable
+Hugo renders `og:image` before the cards exist, so the URL must be derivable
 from the page alone:
 
 ```
@@ -135,14 +135,24 @@ from the page alone:
 /og/<section>/<slug>.jpg    photo      (photographic, JPEG q82)
 ```
 
-Both are derivable in the template from whether front matter has an `image:`
-block. **The rule is therefore stated twice — in the template and in the
-generator — and a divergence would ship silently.** `linkcheck` resolving every
-`og:image` against a real file is what catches it. This is the same class of bug
-as template-built hrefs bypassing `relref`, and it gets the same guard.
+An earlier draft had this rule stated twice — once in the template and once in
+the Node generator — and accepted the divergence risk on the grounds that
+`linkcheck` would catch it. Planning removed the duplication instead.
 
-If dropping the `sharp` dependency ever matters more than photographic
-compression, emitting `.png` unconditionally removes the duplication.
+`layouts/partials/og-image.html` is the sole definition. `head.html` calls it for
+the meta tag, and a Hugo-generated manifest (`public/og-manifest.json`) calls it
+for the file path. The generator consumes `card` from the manifest and never
+derives a path of its own, so there is no second rule to drift.
+
+The manifest also settles a question Node could not have answered correctly:
+which pages exist. `site.Pages` is Hugo's own canonical set, so section lists,
+the taxonomy and its terms are all included, and paginated URLs — which are not
+separate pages — are correctly absent. Re-deriving that from `content/` would
+have missed a third of the site.
+
+`linkcheck` still resolves every `og:image` against a real file. With one
+definition it is verifying that two *tools* agree rather than that two copies of
+a rule agree, which is the check actually worth having.
 
 ### Which pages get a card
 
@@ -153,12 +163,20 @@ needs enumerating rather than assuming:
 |---|---|
 | Entity and content pages | `/og/<section>/<slug>.{png,jpg}` |
 | Home | `/og/home.png` |
-| Section lists (`/whiskies/`) | `/og/sections/<section>.png` |
+| Section lists (`/whiskies/`) | `/og/<section>.png` |
 | Taxonomy terms (`/flavours/peat-smoke/`) | `/og/flavours/<term>.png` |
-| Paginated pages 2..n | reuse page 1's card — a page number is not worth a render |
+| Paginated pages 2..n | inherit the section's card automatically |
 | `404.html` | none; exempt |
 
-Invariant 7 exempts `404.html` and nothing else. The exemption list lives beside
+A file `og/whiskies.png` and a directory `og/whiskies/` coexist without
+collision, so section and entity cards need no separate namespace. Paginated
+pages need no handling at all: Hugo already reports the section's own
+`RelPermalink` when rendering `/whiskies/page/2/`, which is why they also
+already canonicalise there.
+
+Invariant 7 exempts `404.html` and nothing else — its `RelPermalink` is
+`/404.html` rather than a directory, so the slug rule would not produce a sane
+path for it, and nobody deliberately shares a 404. The exemption list lives beside
 `UTILITY_SECTIONS` in `tools/validate/index.mjs`, which already carries this kind
 of rule — note that the utility exemption there is about the interlinking floor
 and does *not* imply an image exemption. `/about/` pages and `/explore` get
@@ -193,10 +211,11 @@ scrim carries the text, credit bottom-right —
 ```
 
 Title in Source Serif 4: 76px to 24 characters, 64px to 40, 56px beyond, clamped
-to three lines with an ellipsis past that. Eyebrow, fact line and flavour tags in Source Sans 3. Both are SIL
-OFL and vendored to `tools/images/fonts/` — satori needs real font files, and the
-site's own stack (Iowan Old Style, Palatino) is proprietary system fonts it
-cannot use.
+to three lines with an ellipsis past that. Eyebrow, fact line and flavour tags in Source Sans 3. Both are SIL OFL
+and come from npm as devDependencies — `@fontsource/source-serif-4` and
+`@fontsource/source-sans-3`, which ship the `.woff` satori accepts (it does not
+read `woff2`). Nothing is committed. Satori needs real font files, and the site's
+own stack (Iowan Old Style, Palatino) is proprietary system fonts it cannot use.
 
 One grid and one type scale for every kind. Kinds differ only in the eyebrow and
 the fact line: a bottling shows `12 yr · 40% · Single Malt`, a region its
