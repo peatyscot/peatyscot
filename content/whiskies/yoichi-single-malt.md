@@ -26,15 +26,19 @@ sources:
 ---
 
 The current core expression from [Yoichi]({{< relref "/distilleries/yoichi" >}}), bottled at
-**45% ABV** without an age statement.
+**45% ABV**, and carrying no age statement at all.
 
 ## Why there is no age statement
 
-Nikka withdrew its aged Yoichi range — the 10, 15 and 20 year olds — in 2015. Japanese
-whisky demand had grown faster than anyone had laid down stock to meet, and the aged
-expressions could not be sustained. This no-age-statement bottling replaced them.
+In 2015 Nikka withdrew the aged Yoichi range — the 10, the 15 and the 20 year old — and
+they have not come back. The reason is arithmetic, and arithmetic here is unforgiving. The
+twenty-year-old whisky available in any given year was laid down two decades earlier, by
+people who could not know what was coming. Demand for Japanese whisky grew faster than that
+stock had ever been built to meet. The casks were simply not there.
 
-An absent age statement is a supply fact, not a quality verdict. It means the youngest
+This bottling replaced them.
+
+An absent age statement is a supply fact, not a verdict on quality. It means the youngest
 whisky in the vatting is unstated, and nothing more. See
 [Japanese whisky]({{< relref "/countries/japan" >}}) for the labelling rules that govern
 what may be called Japanese at all.
@@ -49,6 +53,8 @@ consensus summary, not a personal tasting note.
   coal-fired stills, with [sherry]({{< relref "/flavours/sherry" >}}) fruit behind.
 - **Finish** — medium-long, dry, smoke fading to bitter oak.
 
-The [peat smoke]({{< relref "/flavours/peat-smoke" >}}) here is drier and less maritime
-than [Islay]({{< relref "/regions/islay" >}})'s — a useful comparison against
-[Ardbeg 10 Year Old]({{< relref "/whiskies/ardbeg-10-year-old" >}}).
+The [peat smoke]({{< relref "/flavours/peat-smoke" >}}) here is drier and less maritime than
+[Islay]({{< relref "/regions/islay" >}})'s. The bogs of Hokkaido did not form from seaweed,
+and the smoke has never forgotten it. Set against
+[Ardbeg 10 Year Old]({{< relref "/whiskies/ardbeg-10-year-old" >}}), the difference is the
+whole point.

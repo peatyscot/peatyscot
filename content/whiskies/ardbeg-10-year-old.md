@@ -25,25 +25,31 @@ sources:
     accessed: 2026-08-31
 ---
 
-The core expression from [Ardbeg]({{< relref "/distilleries/ardbeg" >}}), and one of the
-few widely distributed Islay malts to state plainly that it is **non-chill-filtered** and
-of **natural colour**, bottled at **46% ABV**.
+The core expression of [Ardbeg]({{< relref "/distilleries/ardbeg" >}}), and one of the few
+widely distributed Islay malts to state plainly what has been done to it:
+**non-chill-filtered**, **natural colour**, **46% ABV**. Three declarations, where most
+labels manage one.
 
 ## Why the disclosure matters
 
-Chill filtration removes fatty acids and esters that cause a whisky to go cloudy when
-cold or diluted. It is cosmetic, and it also removes compounds that carry texture and
-aroma. Bottling at 46% rather than 40% makes it unnecessary, since the haze does not form
-readily above roughly 46%.
+Here, as the temperature falls, something begins to happen in the bottle. The fatty acids
+and esters — the very compounds that carry texture and aroma — gather, and the spirit
+clouds. And so, at most distilleries, they are taken out long before they reach the glass.
+It is a decision made entirely for appearance. The whisky pays for it.
 
-Declining both filtration and colouring is a substantive choice, not a marketing one, and
-it is why this bottling is often recommended as a reference dram — what you taste is close
-to what came out of the cask.
+There is another way, and it costs nothing but strength. Above roughly 46% the haze does
+not readily form at all. Bottle at 46% rather than the legal minimum of 40%, and the filter
+becomes unnecessary.
+
+That is the choice made here, and the colouring declined alongside it. Two substantive
+decisions, neither of them marketing, and together they are why this bottling is so often
+put forward as a reference dram. What is in the glass is close to what came out of the
+cask.
 
 It is a [single malt]({{< relref "/glossary/single-malt" >}}) from
-[Islay]({{< relref "/regions/islay" >}}) in [Scotland]({{< relref "/countries/scotland" >}}), and although it is
-not [cask strength]({{< relref "/glossary/cask-strength" >}}), it shares that category's reasoning
-about filtration.
+[Islay]({{< relref "/regions/islay" >}}) in [Scotland]({{< relref "/countries/scotland" >}}).
+It is not [cask strength]({{< relref "/glossary/cask-strength" >}}) — but it arrives at the
+same reasoning about the filter by a different road.
 
 ## Aggregated flavour profile
 
@@ -55,7 +61,7 @@ consensus summary, not a personal tasting note.
   cut with citrus and a green, herbal note.
 - **Finish** — long, ashy, drying, distinctly saline.
 
-Ardbeg's **55 ppm** malt specification is higher than
-[Lagavulin]({{< relref "/distilleries/lagavulin" >}})'s, yet the whisky tastes lighter —
-a useful demonstration that [phenol ppm]({{< relref "/glossary/phenol-ppm" >}}) predicts
-intensity poorly on its own.
+Ardbeg specifies its malt at **55 ppm** phenols. That is a higher figure than
+[Lagavulin]({{< relref "/distilleries/lagavulin" >}})'s, two miles along the same shore.
+And yet this is the lighter of the two whiskies — the clearest demonstration on the island
+that [phenol ppm]({{< relref "/glossary/phenol-ppm" >}}), on its own, predicts very little.

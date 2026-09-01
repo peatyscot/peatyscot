@@ -25,21 +25,28 @@ sources:
     accessed: 2026-08-31
 ---
 
-The flagship of [Lagavulin]({{< relref "/distilleries/lagavulin" >}}) and, for a long
-stretch, the only heavily peated [Islay]({{< relref "/regions/islay" >}}) malt widely
-available at sixteen years old. It is bottled at **43% ABV**.
+Sixteen years is a very long time to leave smoke alone. This is the flagship of
+[Lagavulin]({{< relref "/distilleries/lagavulin" >}}) and, for a long stretch, the only
+heavily peated [Islay]({{< relref "/regions/islay" >}}) malt widely available at that age.
+It is bottled at **43% ABV**.
 
 ## Why the age matters here
 
-Sixteen years is unusual for heavily peated whisky, and it is the whole point of this
-bottling. Phenolic compounds degrade slowly across maturation, so extended ageing does not
-remove the [peat smoke]({{< relref "/flavours/peat-smoke" >}}) — it moves it. The sharp,
-medicinal edge of young Islay spirit softens into something closer to dying embers and
-damp tobacco, while cask influence builds underneath it.
+Phenolic compounds are stubborn. Deposited on wet barley in a kiln, they survive the mash,
+the ferment and the still, and once sealed into oak they break down only slowly. Sixteen
+years does not remove the [peat smoke]({{< relref "/flavours/peat-smoke" >}}).
 
-Combined with [Lagavulin]({{< relref "/distilleries/lagavulin" >}})'s slow distillation
-and a meaningful proportion of [sherry-seasoned]({{< relref "/flavours/sherry" >}}) oak,
-the result is the reference point for what aged peat tastes like.
+It moves it.
+
+The sharp medicinal edge of young Islay spirit — the note that announces itself the moment
+a cask is broached — settles, across those years, into something closer to dying embers and
+damp tobacco. And while the smoke settles, the wood is working in the other direction,
+pushing sweetness and dried fruit up beneath it.
+
+Two things give it enough to work with: the unusually slow distillation at
+[Lagavulin]({{< relref "/distilleries/lagavulin" >}}), and a meaningful proportion of
+[sherry-seasoned]({{< relref "/flavours/sherry" >}}) oak. The result has become the
+reference point for what aged peat tastes like.
 
 ## Aggregated flavour profile
 
@@ -53,9 +60,9 @@ consensus summary, not a personal tasting note.
 
 ## Disclosure
 
-Diageo does not publish chill-filtration or colouring information for this bottling. At
-43% ABV chill filtration is likely but unconfirmed, and the fields above record it as
-undisclosed rather than assume.
+Diageo publishes no chill-filtration or colouring information for this bottling. At 43% ABV
+filtration is likely. Likely is not known, and the fields above read **undisclosed** rather
+than assume.
 
 Compare with [Ardbeg 10 Year Old]({{< relref "/whiskies/ardbeg-10-year-old" >}}), which
-takes the more heavily peated malt in the opposite direction.
+takes the more heavily peated malt in the opposite direction entirely.

@@ -5,7 +5,8 @@ date: 2026-08-31
 lastmod: 2026-08-31
 ---
 
-A region is a legal boundary that happens to correlate, loosely, with a style. The
-correlation is strongest where geography forced a shared choice — island distilleries
-burning local peat because coal had to be shipped in — and weakest where it is simply a
-line on a map.
+A region is a legal boundary that happens, loosely, to correlate with a style.
+
+The correlation is strongest where geography forced a shared decision — island distilleries
+burning the peat beneath their feet, because coal had to come by sea. It is weakest where
+the region is nothing more than a line drawn on a map.

@@ -5,5 +5,8 @@ date: 2026-08-31
 lastmod: 2026-08-31
 ---
 
-One page per bottling. Where a producer declines to disclose something — chill filtration,
-added colouring, cask composition — that silence is recorded rather than guessed at.
+One page per bottling.
+
+What went into it, how long it stayed there, what strength it left at — and, no less
+usefully, what the producer has not stated. Where chill filtration, added colouring or cask
+composition go undeclared, the page records **undisclosed**. It does not guess.

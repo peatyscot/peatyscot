@@ -5,5 +5,7 @@ date: 2026-08-31
 lastmod: 2026-08-31
 ---
 
-Whisky labels use a small vocabulary of technical terms, several of which mean less than
-they appear to. Each entry says what the term means, and what it does not guarantee.
+Whisky labels draw on a small vocabulary of technical terms, and several of them mean rather
+less than they appear to.
+
+Each entry says what a term means — and, more usefully, what it does not guarantee.

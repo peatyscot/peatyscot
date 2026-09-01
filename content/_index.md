@@ -5,10 +5,12 @@ date: 2026-08-31
 lastmod: 2026-08-31
 ---
 
-Whisky is easier to enjoy than it is to navigate. The same liquid gets sold as a region,
-a brand, an age statement, a cask type and a flavour promise, and those five things
-frequently disagree with each other.
+Whisky is easier to enjoy than it is to navigate.
 
-This site takes the opposite approach: describe what is actually in the bottle, say where
-each fact came from, and link everything to everything else so you can follow your own
-curiosity rather than a marketing funnel.
+The same liquid is offered to you five times over — as a region, as a brand, as an age
+statement, as a cask type, and as a flavour promise — and those five accounts disagree with
+one another constantly.
+
+This site takes the opposite approach. Describe what is actually in the bottle. Say where
+every fact came from. Then link everything to everything else, so a thread can be followed
+wherever it happens to lead, rather than down a funnel built by somebody selling something.

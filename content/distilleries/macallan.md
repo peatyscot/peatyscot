@@ -29,23 +29,27 @@ The Macallan sits above the River Spey at Craigellachie in Moray, in the heart o
 
 ## What makes it taste like that
 
-Two production choices define the house style, and neither is the distillation.
+Two production choices define the house style, and neither of them is the distillation
+itself.
 
-The stills are **unusually small**, which increases the ratio of copper surface to spirit
-and produces a heavier, more richly textured new-make than the Speyside average.
+The stills are **unusually small**. A small still puts more copper in contact with less
+spirit, and what runs off is a heavier, more richly textured new-make than the Speyside
+average.
 
-The larger factor is wood. The Macallan commissions its own casks — sourcing oak, having it
-seasoned with sherry in Jerez for a period of years, then shipping the casks to Scotland —
-and this programme accounts for a substantial share of the finished product's cost. The
-[sherry]({{< relref "/flavours/sherry" >}}) character of the whisky is not a finish applied
-late; it is the maturation.
+The larger factor, by some distance, is wood. The Macallan commissions its own casks: it
+sources the oak, has it seasoned with sherry in Jerez for a period of years, and only then
+ships it north. That programme accounts for a substantial share of what the finished bottle
+costs. The [sherry]({{< relref "/flavours/sherry" >}}) character here is not a finish applied
+at the end. It is the maturation.
 
-The distillery is **unpeated**, which makes it a useful reference point against the
-[Islay]({{< relref "/regions/islay" >}}) style: the same three legal ingredients, an
-entirely different result. Both are [single malts]({{< relref "/glossary/single-malt" >}}) under
-[Scotch]({{< relref "/countries/scotland" >}}) law; the divergence is entirely in the making.
+The distillery is **unpeated**, which makes it the most useful reference point there is
+against the [Islay]({{< relref "/regions/islay" >}}) style. The same three legal ingredients,
+begun in the same way, arriving somewhere else entirely. Both are
+[single malts]({{< relref "/glossary/single-malt" >}}) under
+[Scotch]({{< relref "/countries/scotland" >}}) law. Every difference between them was made
+by hand.
 
 ## Core bottling
 
 [The Macallan Double Cask 12 Years Old]({{< relref "/whiskies/macallan-double-cask-12-year-old" >}})
-combines American and European oak, both sherry-seasoned.
+sets American oak against European, both of them sherry-seasoned.

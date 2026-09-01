@@ -16,35 +16,39 @@ sources:
 ---
 
 Japanese whisky begins with a Scottish apprenticeship. Masataka Taketsuru studied chemistry
-at Glasgow and worked at Scottish distilleries before returning home to help found Japan's
-first commercial distillery, and later his own at
-[Yoichi]({{< relref "/distilleries/yoichi" >}}) in 1934.
+at Glasgow and worked in Scottish distilleries before returning home to help found Japan's
+first commercial distillery — and, later, his own at
+[Yoichi]({{< relref "/distilleries/yoichi" >}}), in 1934.
 
 ## The labelling problem
 
-For most of its history, "Japanese whisky" had no legal definition. Spirit distilled
-elsewhere could be imported, bottled in Japan and sold as Japanese — and frequently was.
+For most of its history, "Japanese whisky" meant nothing at all in law.
 
-In 2021 the Japan Spirits & Liqueurs Makers Association introduced voluntary standards
+Spirit distilled elsewhere could be imported, bottled in Japan, and sold as Japanese. And
+frequently was.
+
+In 2021 the Japan Spirits & Liqueurs Makers Association introduced voluntary standards,
 requiring that whisky labelled Japanese be fermented, distilled, matured **and** bottled in
 Japan, using water extracted in Japan, with at least three years in wood.
 
-Two caveats matter when reading a label. The standards are **voluntary**, binding only on
-association members; and they were phased in, so bottles produced under the old regime
-remained saleable for years afterwards. For anything bottled before the mid-2020s, the
-producer's own disclosure is the only reliable guide.
+Two caveats survive that. The standards are **voluntary**, binding only on association
+members; and they were phased in, so bottles produced under the old regime remained saleable
+for years afterwards. For anything bottled before the mid-2020s, the producer's own
+disclosure is the only reliable guide.
 
 ## Where it is made
 
-Japan has no protected sub-regions in the way that [Scotland]({{< relref "/countries/scotland" >}})
-does. Geography still matters, though — [Hokkaido]({{< relref "/regions/hokkaido" >}}) in the far
-north was chosen precisely because its cold, damp, sea-facing climate resembled Scotland's.
+Japan has no protected sub-regions in the way that
+[Scotland]({{< relref "/countries/scotland" >}}) does. Geography still matters, though —
+[Hokkaido]({{< relref "/regions/hokkaido" >}}) in the far north was chosen precisely because
+its cold, damp, sea-facing climate resembled Scotland's.
 
-Japanese distilleries also differ structurally from Scottish ones. Companies rarely trade
-casks with competitors, so a single site must produce many different spirit styles in-house
-to have anything to blend. That pushes distilleries toward varied still shapes, yeast
-strains and peating levels under one roof.
+There is a structural difference too, and it shapes the spirit more than any rule does.
+Japanese companies rarely trade casks with their competitors. A single site must therefore
+produce every style it might one day want to blend — which pushes a distillery towards many
+still shapes, many yeast strains, many peating levels, all under one roof.
 
-The result is that a Japanese [single malt]({{< relref "/glossary/single-malt" >}}) may contain a
-wider internal range than a Scottish equivalent — including
-[peat smoke]({{< relref "/flavours/peat-smoke" >}}), as at [Yoichi]({{< relref "/distilleries/yoichi" >}}).
+And so a Japanese [single malt]({{< relref "/glossary/single-malt" >}}) may hold a wider
+internal range than its Scottish equivalent — including
+[peat smoke]({{< relref "/flavours/peat-smoke" >}}), as at
+[Yoichi]({{< relref "/distilleries/yoichi" >}}).

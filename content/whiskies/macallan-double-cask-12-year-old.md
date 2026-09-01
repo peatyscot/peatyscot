@@ -25,22 +25,26 @@ sources:
     accessed: 2026-08-31
 ---
 
-[The Macallan]({{< relref "/distilleries/macallan" >}})'s Double Cask 12 marries whisky
-matured in **American oak** and **European oak**, both seasoned with sherry in Jerez. It is
-bottled at **40% ABV**, the legal minimum for
+Two oaks, grown on opposite sides of the Atlantic, seasoned with the same wine, and married
+into one bottling. That is what "double cask" means at
+[The Macallan]({{< relref "/distilleries/macallan" >}}). This one carries a **12 year** age
+statement, and is bottled at **40% ABV** — the legal minimum for
 [Scotch]({{< relref "/countries/scotland" >}}). Some markets receive a 43% version, so the
 strength on the label is worth checking.
 
 ## What "double cask" actually means
 
-Both oaks are sherry-seasoned; the variable is the wood, not the wine. European oak
-(*Quercus robur*) is higher in tannins and gives the darker, spicier, more structured
-[sherry]({{< relref "/flavours/sherry" >}}) character. American oak (*Quercus alba*) is
-higher in vanillins and lactones, giving [vanilla]({{< relref "/flavours/vanilla" >}}),
-coconut and a softer sweetness.
+The wine is the constant here. Both oaks are seasoned with sherry in Jerez. The variable is
+the wood itself.
 
-Marrying the two produces something more approachable than the all-European-oak Sherry Oak
-range — the spice is present but restrained.
+European oak — *Quercus robur* — is the higher in tannins, and it gives the darker, spicier,
+more structured [sherry]({{< relref "/flavours/sherry" >}}) character. American oak —
+*Quercus alba* — is the richer in vanillins and lactones, and gives
+[vanilla]({{< relref "/flavours/vanilla" >}}), coconut and a softer sweetness.
+
+Set one against the other, and the effect is moderation. This is a more approachable
+proposition than the all-European-oak Sherry Oak range. The spice is present. It is simply
+held.
 
 ## Aggregated flavour profile
 
@@ -52,6 +56,6 @@ consensus summary, not a personal tasting note.
   tannic grip of heavier sherry styles.
 - **Finish** — medium, sweet, drying gently into oak.
 
-For the opposite pole of Scotch, compare
+For the opposite pole of Scotch entirely, compare
 [Lagavulin 16 Year Old]({{< relref "/whiskies/lagavulin-16-year-old" >}}) — the same three
-permitted ingredients, an entirely different proposition.
+permitted ingredients, and almost nothing else in common.

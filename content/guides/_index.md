@@ -5,4 +5,4 @@ date: 2026-08-31
 lastmod: 2026-08-31
 ---
 
-Longer pieces that explain a mechanism rather than describe a bottle.
+Longer pieces, each one explaining a mechanism rather than describing a bottle.

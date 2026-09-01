@@ -5,6 +5,7 @@ date: 2026-08-31
 lastmod: 2026-08-31
 ---
 
-A distillery page records the things that persist: founding date, ownership, location,
-still configuration and cask policy. Brands are repositioned every few years; stills are
-not.
+Brands are repositioned every few years. Stills are not.
+
+A distillery page records the things that persist: the founding date, the ownership, the
+location, the shape of the stills, and the policy on wood.
