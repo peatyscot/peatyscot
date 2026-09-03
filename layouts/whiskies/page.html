@@ -11,6 +11,8 @@
     {{ partial "page-meta.html" . }}
   </header>
 
+  {{ partial "hero.html" . }}
+
   {{ $age := "" }}
   {{ with .Params.age_statement }}{{ $age = printf "%v years old" . }}{{ end }}
   {{ $dist := .Params.distillery | default "" }}

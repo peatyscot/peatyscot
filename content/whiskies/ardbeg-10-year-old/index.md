@@ -16,6 +16,12 @@ colouring_added: false
 peat_level: heavy
 flavours: ["peat-smoke", "iodine", "citrus"]
 offers: []
+image:
+  alt: "A bottle of Ardbeg Ten single malt Scotch whisky, its dark label reading \"Guaranteed Ten Years Old\" and \"Non Chill-Filtered\", photographed against a red curtain."
+  credit: "P. Brundel"
+  source_url: "https://commons.wikimedia.org/wiki/File:Ardbeg_Single_Islay_Malt_Scotch_Whisky_10_years_old.jpg"
+  license: "CC BY-SA 3.0"
+  license_url: "https://creativecommons.org/licenses/by-sa/3.0"
 sources:
   - title: "Ardbeg Distillery"
     url: "https://www.ardbeg.com"

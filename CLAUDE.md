@@ -32,6 +32,13 @@ Enforced by tooling. Do not weaken any of these to make a build pass:
    carry the line disclaiming it as a personal tasting note. The validator checks for it.
 6. **URLs are permanent.** `/whiskies/`, `/distilleries/`, `/regions/`, `/countries/`,
    `/flavours/`, `/glossary/`, `/guides/`. Changing a published URL needs a redirect.
+   A page may move from `<slug>.md` to `<slug>/index.md` to gain a photograph — that is
+   a leaf bundle and the URL does not change.
+7. **A photograph and its provenance travel together.** A bundle holding `photo.*` must
+   carry an `image:` block, and an `image:` block must have a `photo.*` beside it. Either
+   alone fails the build. Licences come from an allowlist — CC0, public domain, `CC BY-*`,
+   `CC BY-SA-*` — and are never guessed: silence is not a licence, the same way it is not
+   a `false`. Alt text is written by someone who has seen the photograph, never generated.
 
 ## Two link systems, two guards
 

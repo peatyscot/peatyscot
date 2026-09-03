@@ -16,6 +16,12 @@ colouring_added: undisclosed
 peat_level: heavy
 flavours: ["peat-smoke", "iodine", "sherry"]
 offers: []
+image:
+  alt: "A bottle of Lagavulin aged 16 years, the cream label carrying the distillery's sailing-boat device and the figure 16 in red, against a pine background."
+  credit: "P. Brundel"
+  source_url: "https://commons.wikimedia.org/wiki/File:Lagavulin_Single_Islay_Malt_Whisky_16_years_old.jpg"
+  license: "CC BY-SA 3.0"
+  license_url: "https://creativecommons.org/licenses/by-sa/3.0"
 sources:
   - title: "Lagavulin — Diageo Malts"
     url: "https://www.malts.com/en-row/distilleries/lagavulin"

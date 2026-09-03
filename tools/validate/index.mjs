@@ -7,7 +7,7 @@
  * density and orphan detection, all as hard failures.
  */
 import { readFileSync, readdirSync, statSync } from "node:fs";
-import { join, relative, sep } from "node:path";
+import { dirname, join, relative, sep } from "node:path";
 import matter from "gray-matter";
 import { schemas } from "./schema.mjs";
 
@@ -18,6 +18,13 @@ const MIN_INTERNAL_LINKS = 5;
 /* Pages that are navigational rather than editorial: they list their children,
    so a link-density floor and an inbound-link requirement do not apply. */
 const INDEX_FILE = /(^|\/)_index\.md$/;
+
+/* A leaf bundle: content/whiskies/<slug>/index.md, carrying photo.* beside it.
+   It is an ordinary content page — unlike _index.md it is not a listing, so the
+   link-density and orphan rules still apply. Only its URL is derived
+   differently, from the directory rather than the filename. */
+const BUNDLE_FILE = /(^|\/)index\.md$/;
+const PHOTO_FILE = /^photo\.(jpe?g|png|webp)$/i;
 
 /* Utility and legal pages are not part of the wiki graph. Forcing five
    cross-links into a privacy policy would produce padding, not navigation. */
@@ -62,17 +69,19 @@ for (const abs of files) {
   const parts = relative(CONTENT, abs).split(sep);
   const section = parts.length > 1 ? parts[0] : "_root";
   const isIndex = INDEX_FILE.test(rel);
+  const isBundle = BUNDLE_FILE.test(rel);
 
-  // Logical URL path, matching Hugo's own.
+  // Logical URL path, matching Hugo's own. Both _index.md and a bundle's
+  // index.md take their URL from the containing directory.
   let urlPath;
-  if (isIndex) {
+  if (isIndex || isBundle) {
     urlPath = "/" + parts.slice(0, -1).join("/");
   } else {
     urlPath = "/" + parts.join("/").replace(/\.md$/, "");
   }
   if (urlPath === "/") urlPath = "/";
 
-  pages.push({ rel, section, isIndex, urlPath, fm, body });
+  pages.push({ rel, section, isIndex, isBundle, urlPath, fm, body });
 }
 
 const byPath = new Map(pages.map((p) => [p.urlPath, p]));
@@ -155,6 +164,26 @@ for (const p of pages) {
   if (/##\s*Aggregated flavour profile/i.test(p.body) &&
       !/not a personal tasting note/i.test(p.body)) {
     fail(p.rel, "has a flavour profile but no line disclaiming it as a personal tasting note");
+  }
+}
+
+/* ---------- 6. photographs and their provenance travel together ---------- */
+/* A photo.* with no image: block is a file nobody can attribute; an image:
+   block with no photo.* is provenance for something that is not there. Either
+   alone is an error, so the licence cannot drift away from the bytes. */
+for (const p of pages) {
+  const photos = p.isBundle
+    ? readdirSync(dirname(join(ROOT, p.rel))).filter((f) => PHOTO_FILE.test(f))
+    : [];
+
+  if (photos.length && !p.fm.image) {
+    fail(p.rel, `bundle contains ${photos[0]} but no image: block — a photograph with no recorded licence is one nobody can review`);
+  }
+  if (p.fm.image && !photos.length) {
+    fail(p.rel, "has an image: block but no photo.* beside it");
+  }
+  if (photos.length > 1) {
+    fail(p.rel, `bundle contains ${photos.length} photo files (${photos.join(", ")}); exactly one is expected`);
   }
 }
 

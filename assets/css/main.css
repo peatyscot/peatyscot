@@ -116,6 +116,25 @@ code { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: .
 .fact-note { color: var(--ink-3); font-size: .82rem; font-family: var(--sans); }
 @media (max-width: 34rem) { .fact { grid-template-columns: 1fr; gap: 0; } }
 
+/* ---------- page photograph ---------- */
+/* A vendored product shot is portrait and narrow, so it sits beside the facts
+   rather than above them — a bottle run to the full measure would dwarf the
+   page it illustrates. Below 46rem it stacks at its natural size. */
+.page-photo { margin: 0 0 1.75rem; }
+.page-photo img {
+  display: block; height: auto; max-width: 100%;
+  border-radius: var(--radius); background: var(--paper-2);
+}
+.page-photo figcaption {
+  font: .78rem/1.5 var(--sans); color: var(--ink-3);
+  margin-top: .55rem; max-width: 14rem;
+}
+.page-photo figcaption a { color: var(--ink-2); text-decoration: none; border-bottom: 1px solid var(--rule); }
+.page-photo figcaption a:hover { color: var(--accent); }
+@media (min-width: 46rem) {
+  .page-photo { float: right; margin: .25rem 0 1.5rem 2rem; }
+}
+
 /* ---------- tags ---------- */
 .tags { list-style: none; display: flex; flex-wrap: wrap; gap: .4rem; padding: 0; margin: 1rem 0 0; }
 .tag {
@@ -148,7 +167,8 @@ code { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: .
 .card-desc { font-size: .89rem; line-height: 1.5; color: var(--ink-2); margin-top: .2rem; }
 
 /* ---------- graph sections ---------- */
-.backlinks, .related, .sources, .offers { margin-top: 3rem; padding-top: 1.75rem; border-top: 1px solid var(--rule); }
+/* clear: a floated page photograph must not run under a section rule. */
+.backlinks, .related, .sources, .offers { margin-top: 3rem; padding-top: 1.75rem; border-top: 1px solid var(--rule); clear: right; }
 .backlinks h2, .related h2, .sources h2, .offers h2 { margin-top: 0; font-size: 1.25rem; }
 .link-list { list-style: none; padding: 0; margin: 0; display: grid; gap: .45rem; }
 .link-list li { display: flex; align-items: baseline; gap: .6rem; }

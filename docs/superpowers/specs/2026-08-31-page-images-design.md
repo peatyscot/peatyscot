@@ -1,7 +1,10 @@
 # Every page gets an image
 
-**Status:** approved design, not yet implemented
-**Date:** 2026-08-31
+**Status:** approved design. Phase 1 not started. A slice of phase 2 shipped
+2026-09-03: page-bundle migration, the `image:` schema and licence allowlist, the
+photo/provenance invariant, and `partials/hero.html` — driven by two hand-picked
+Commons bottle photographs rather than by `images:fetch`, which is still unwritten.
+**Date:** 2026-08-31, revised 2026-09-03
 
 ## Problem
 
@@ -36,12 +39,19 @@ BY-SA 2.0. This is the common case, not an edge case.
 
 ## Content model
 
-Photographs attach to *places* only. No bottling will ever have a free-licensed
-shot, so bottlings are excluded from the photo half of this design entirely.
+Photographs attach to any page that can be honestly illustrated. The original
+draft restricted them to *places*, on the assumption that no bottling would ever
+have a free-licensed shot; Commons disproves that (see **Out of scope**).
 
-`distilleries/`, `regions/` and `countries/` migrate to Hugo page bundles.
-`whiskies/`, `glossary/` and `guides/` stay flat. `flavours/` already uses
-`_index.md` bundles.
+`distilleries/`, `regions/` and `countries/` migrate to Hugo page bundles, as do
+individual bottlings under `whiskies/` **that have a photograph** — migration is
+per-page, not per-section, so a bottling stays a flat `.md` until it earns a
+bundle. `glossary/` and `guides/` stay flat. `flavours/` already uses `_index.md`
+bundles.
+
+A bottling carries one extra obligation places do not: the photograph must show
+the *expression the page names*, not merely the brand. Verifying that means
+reading the label, so the picker is always a human.
 
 ```
 content/distilleries/macallan/
@@ -246,7 +256,8 @@ eyebrow alone.
 
 Following the existing two-guard split rather than inventing a third style.
 
-**New invariant 7, in `tools/linkcheck`:** every page carries exactly one
+**New invariant 8, in `tools/linkcheck`** (7 was taken by the photo-provenance
+rule shipped 2026-09-03; see `CLAUDE.md`)**:** every page carries exactly one
 `og:image`; it is absolute; it resolves to a real file under `public/`. Finding
 zero across the whole site is a hard failure — the same discipline that already
 protects the unquoted-attribute extractor.
@@ -311,8 +322,17 @@ a real share preview.
 
 ## Out of scope
 
-- Bottle photography of any kind. Producer imagery is all rights reserved and
-  there is no free-licensed equivalent.
+- Producer and retailer bottle imagery. All rights reserved, and an affiliate
+  programme's grant is revocable, so neither is a licence this repo can record.
+
+**Superseded 2026-09-03.** "Bottle photography of any kind" was listed here on the
+assumption that no free-licensed bottle shots exist. They do:
+[Category:Whisky bottles](https://commons.wikimedia.org/wiki/Category:Whisky_bottles)
+holds 223 files across ~70 brands, many of them single bottles under CC BY-SA or CC0.
+Ardbeg 10 and Lagavulin 16 now carry Commons photographs. The rule that survives is
+narrower and unchanged in spirit: a photograph must depict *the expression the page is
+about*. Commons' `Macallan 12.jpg` is Fine Oak, not Double Cask, so that page has no
+photograph rather than a misleading one.
 - AI-generated depictions of real distilleries, places or products.
 - Per-page hand-designed images.
 - Retrofitting photographs onto bottling pages.

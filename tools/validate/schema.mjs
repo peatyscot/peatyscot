@@ -12,6 +12,29 @@ const source = z.object({
 
 const slug = z.string().regex(/^[a-z0-9]+(-[a-z0-9]+)*$/, "must be a lowercase kebab-case slug");
 
+/* Free licences only, and the jurisdiction ports Commons still carries
+   ("CC BY-SA 2.0 de"). A licence outside this list is skipped, never guessed:
+   the same rule as the tri-state disclosure fields, applied to provenance.
+   Enforced here as well as at fetch time, so a hand-added photograph cannot
+   smuggle in an unlicensed file. */
+const LICENCE_ALLOWLIST =
+  /^(CC0( 1\.0)?|Public domain|CC BY(-SA)? [1-4]\.0( [a-z]{2})?)$/i;
+
+/* Provenance for a bundle's photo.* resource. The photograph itself is a page
+   resource; this records only who took it and under what terms. Every field is
+   required: a photograph whose licence is half-recorded is one nobody can
+   review, which is the situation this exists to prevent. */
+export const image = z.object({
+  alt: z.string().min(15, "alt text must describe the photograph, not merely name it"),
+  credit: z.string().min(2),
+  source_url: z.string().url(),
+  license: z.string().regex(
+    LICENCE_ALLOWLIST,
+    "licence is not on the free-licence allowlist — never guess one, and never infer it from silence"
+  ),
+  license_url: z.string().url(),
+});
+
 /* Every page needs a title and a description: the description is the meta
    description, and Google truncates around 160 characters. */
 const base = z.object({
@@ -23,6 +46,7 @@ const base = z.object({
   lastmod: z.union([z.string(), z.date()]).optional(),
   flavours: z.array(slug).optional(),
   sources: z.array(source).optional(),
+  image: image.optional(),
 });
 
 const peatLevel = z.enum(["unpeated", "light", "medium", "heavy"]);

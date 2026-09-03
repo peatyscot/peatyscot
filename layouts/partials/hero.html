@@ -1,0 +1,30 @@
+{{/* Page photograph, from a leaf bundle's photo.* resource.
+
+     Renders nothing when the page carries no photograph. Most pages do not and
+     never will — a bottling with no free-licensed shot is the normal case, not
+     a fault — so unlike href.html this has no degraded state to represent: it
+     is either a full figure with attribution, or nothing at all.
+
+     Credit is a visible <figcaption> rather than a title attribute or an alt
+     string. CC BY-SA requires attribution the reader can actually see, and a
+     caption is the only place on the page where that is unambiguous. */}}
+
+{{ $img := .Resources.GetMatch "photo.*" }}
+{{ $meta := .Params.image }}
+
+{{ if and $img $meta }}
+  {{ $jpg := $img.Resize "x560 q82" }}
+  {{ $webp := $img.Resize "x560 webp q80" }}
+  <figure class="page-photo">
+    <picture>
+      <source srcset="{{ $webp.RelPermalink }}" type="image/webp">
+      <img src="{{ $jpg.RelPermalink }}"
+           width="{{ $jpg.Width }}" height="{{ $jpg.Height }}"
+           alt="{{ $meta.alt }}" loading="eager" decoding="async">
+    </picture>
+    <figcaption>
+      Photograph <a href="{{ $meta.source_url }}" rel="noopener">{{ $meta.credit }}</a>,
+      <a href="{{ $meta.license_url }}" rel="license noopener">{{ $meta.license }}</a>
+    </figcaption>
+  </figure>
+{{ end }}
