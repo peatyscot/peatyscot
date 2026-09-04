@@ -90,6 +90,14 @@ npm run check       # build + offline link check
 If validation fails, fix the content. Never relax a rule in `tools/validate/` to get
 green — the rules encode the site's editorial standard.
 
+## Photographs
+
+A bottling that gains a photograph moves from `<slug>.md` to `<slug>/index.md` — a leaf
+bundle, same URL — and the photograph and its provenance must both be there or the build
+fails. Bottle photographs have their own standard (one canvas size, transparent ground)
+and their own sourcing tests: use the `peatyscot-images` skill rather than adding a file
+by hand.
+
 ## Adding a whole new region or country
 
 A new `region` or `country` value needs its page to exist before any distillery can

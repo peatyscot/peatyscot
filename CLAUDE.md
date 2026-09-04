@@ -53,6 +53,27 @@ Note that `linkcheck` must handle unquoted attributes: `hugo --minify` strips qu
 an extractor that only matches `href="..."` will report a clean site while checking
 nothing. It fails loudly if it finds zero references.
 
+## Bottle photographs
+
+Every bottling's photograph is **900 × 1800 PNG on a transparent ground**, bottle 94% of
+the canvas height and centred: uniform so the pages sit together rather than looking
+scavenged, transparent so the ground behind a bottle stays a CSS decision. Distillery and
+place photographs are excluded — cutting a building out of its glen misrepresents it.
+
+`tools/images/normalise.py` cuts the background out and lays the bottle on the canvas. It
+refuses rather than writing a bad cut, which is the gate: a bottle shot against a curtain
+or a dark wall cannot be separated from it, because glass is transparent and whatever
+stood behind the bottle also stands inside it. That is a sourcing constraint, so the
+choice of photograph is where the standard is actually met.
+
+A cut-out is an adaptation, not the photographer's original, so `image:` records
+`modified:` alongside the licence, and under CC BY-SA the cut-out carries the source's
+licence.
+
+Two gaps, both real: the build does not yet check that a bottling's `photo.*` meets the
+standard, and the two photographs already in the repo predate it and do not.
+Procedure, sourcing tests and the state of the gaps: `.claude/skills/peatyscot-images/`.
+
 ## Performance trap
 
 Do not compute backlinks by scanning every page from inside a page template. That is

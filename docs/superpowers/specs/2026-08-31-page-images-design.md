@@ -59,6 +59,16 @@ content/distilleries/macallan/
     photo.jpg         # committed, longest edge 1600px
 ```
 
+**Revised 2026-09-04.** That shape holds for places. A *bottling's* photograph is
+`photo.png` instead: 900 × 1800 with a transparent ground, cut out and laid on a
+standard canvas by `tools/images/normalise.py`, so bottles share one footprint
+and the ground behind them stays a CSS decision. A cut-out is an adaptation, so
+its `image:` block also carries `modified:`. The sourcing consequence is the
+interesting part — glass is transparent, so a bottle can only be cut out if it
+was shot on a plain seamless ground, which rules out most candidate photographs
+and both of the ones this repo currently holds. See
+`.claude/skills/peatyscot-images/SKILL.md`.
+
 Permalinks, `relref` targets and the published URL structure are all unchanged.
 This is only where the bytes sit. It buys Hugo's `.Resources`, so the hero and
 thumbnails get resizing and WebP without a second pipeline.
