@@ -86,6 +86,7 @@ centres on the canvas.
 | `the cut is in pieces` | The ground ran into the glass and the key ate the bottle. Solidity and edge-crossings measure this; size and aspect alone pass a shredded cut, which is how both photographs currently in the repo measured as plausible while being confetti. Find a different photograph — no threshold rescues it. |
 | `that is not a bottle` | The background survived the cut, or there is a carton or second bottle in the frame. |
 | `keyed N% of the frame` | The ground is too close in tone to the bottle to separate at all. |
+| `the cut is in N pieces` | The largest connected piece is not substantially all of the cut-out. Something belonging to the bottle keyed away and left the rest floating — most often clear glass in the neck, which shows the ground straight through it. Solidity and crossings are measured per scanline and miss this entirely: a capsule floating above a headless bottle still crosses every scanline exactly twice. |
 | `the ground survived as a halo` | The silhouette is whole but rimmed with background: the mask is computed at `WORK_W` and upscaled, so its boundary lands outside the true edge and those pixels keep RGB that is part glass, part ground. `ERODE` pulls the boundary inside the bottle and normally settles this; the refusal means the photograph's edge is softer than the erosion can absorb. This one is invisible in the source — a pale rim against a pale studio ground — and obvious on the site. |
 
 Then **look at the preview**. It shows the cut-out on a checkerboard and on the site's
@@ -97,6 +98,37 @@ The numbers to read in the tool's own line: `keyed` near 70%, `solidity` above 0
 boundary the colour of the glass and 100% a boundary that is simply background. The Ardbeg
 runs 17%. Anything approaching the 30% limit is worth looking at closely even though it
 passes.
+
+## 3b. When no photograph of the expression exists
+
+A page with no free-licensed photograph of *its own* expression may carry a rendered
+illustration instead — never in the photograph's place, only where the photograph slot
+is empty. `tools/images/illustrate.py` takes the real free-licensed photographs that do
+exist as references, and the render goes through the same `normalise.py` canvas, so the
+pages sit together.
+
+```sh
+python3 tools/images/illustrate.py <slug> --refs <dir> --out /tmp/raw.png --tries 4
+```
+
+Generation is stochastic, so the tool samples candidates and keeps the first that
+survives the cut. The gate does the choosing; do not loosen it to rescue a draw.
+
+The result goes in `illustration.png` under an `illustration:` block — a separate shape
+from `image:`, carrying `model`, `generated`, a `note` saying plainly what it is not,
+and the `references` it was derived from. `hero.html` renders it under a caption
+beginning **"Illustration, not a photograph."** Free-licensed references still carry
+attribution, and naming them is what makes a render auditable.
+
+Two rules hold. A render never displaces a real photograph of the right expression, even
+a poor one — Lagavulin 16 keeps its uncuttable pine-background shot. And where the
+references are of the *wrong* expression, the label must be blank: a first Macallan run
+inherited its references and rendered "FINE OAK / TRIPLE CASK MATURED" in crisp type on
+a Double Cask page, which is the failure a caption cannot excuse.
+
+Some bottles will not survive this at all. Yoichi's pale amber body, cream label and
+clear glass neck sit too close to any plain ground the model gives it; ten candidates
+across two prompts were all refused, and that is a sourcing answer, not a retry answer.
 
 ## 4. Record provenance, and that you modified it
 

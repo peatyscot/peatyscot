@@ -343,6 +343,30 @@ Ardbeg 10 and Lagavulin 16 now carry Commons photographs. The rule that survives
 narrower and unchanged in spirit: a photograph must depict *the expression the page is
 about*. Commons' `Macallan 12.jpg` is Fine Oak, not Double Cask, so that page has no
 photograph rather than a misleading one.
-- AI-generated depictions of real distilleries, places or products.
+- AI-generated depictions of real distilleries, places or products **presented as
+  photographs**.
 - Per-page hand-designed images.
 - Retrofitting photographs onto bottling pages.
+
+**Narrowed 2026-09-04.** "AI-generated depictions of real distilleries, places or
+products" was absolute here. The objection it was carrying is sound but narrower than
+the wording: the harm is a *fabricated depiction passing as a record*, not the render
+itself. A photoreal bottle that the page labels as a generated illustration asserts
+nothing about what the bottle looks like; it decorates a page that already carries the
+facts in text, cited. So the rule survives against renders in the photograph slot, and
+lifts for renders that are captioned as renders.
+
+Two bottlings have no free-licensed photograph of the right expression at all —
+Macallan Double Cask 12 and Yoichi Single Malt — and Commons acquiring one is not a
+plan. (Lagavulin 16 is a different case: it *has* a photograph of the right expression,
+shot against a pine wall, which no keyer can cut. A poor record still outranks a good
+render, so it keeps its photograph.)
+Those pages get illustrations under a separate `illustration:` front-matter block, a
+separate `illustration.png` resource, and a caption that says what they are. The
+distinction is load-bearing and enforced by structure, not by care: a generated file
+cannot occupy `photo.*`, and `image:` still demands a photographer, a source URL and a
+licence from the allowlist, which a render cannot supply.
+
+What does not change: a page states the expression's facts from cited sources, and an
+illustration is never evidence for one. Where a render would be read as a record — a
+distillery, a place, a person — it stays out.

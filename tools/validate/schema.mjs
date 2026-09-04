@@ -35,6 +35,28 @@ export const image = z.object({
   license_url: z.string().url(),
 });
 
+/* Provenance for a bundle's illustration.* resource — a render, not a record.
+   Deliberately a separate shape from `image` rather than a flag on it: a
+   photograph has a photographer and a licence, an illustration has a model and
+   the photographs it was derived from, and the two must not be fillable with
+   each other's fields. `references` is not decoration. Free-licensed inputs that
+   materially shape an output still carry attribution, and listing them is what
+   makes a render auditable rather than a thing that simply appeared. */
+export const illustration = z.object({
+  alt: z.string().min(15, "alt text must describe the illustration, not merely name it"),
+  model: z.string().min(3),
+  generated: z.union([z.string(), z.date()]),
+  note: z.string().min(20, "say plainly that this is a render and what it is not"),
+  references: z.array(z.object({
+    title: z.string().min(2),
+    url: z.string().url(),
+    license: z.string().regex(
+      LICENCE_ALLOWLIST,
+      "a reference photograph's licence must be on the free-licence allowlist"
+    ),
+  })).min(1, "a render with no stated references cannot be audited"),
+});
+
 /* Every page needs a title and a description: the description is the meta
    description, and Google truncates around 160 characters. */
 const base = z.object({
@@ -47,6 +69,7 @@ const base = z.object({
   flavours: z.array(slug).optional(),
   sources: z.array(source).optional(),
   image: image.optional(),
+  illustration: illustration.optional(),
 });
 
 const peatLevel = z.enum(["unpeated", "light", "medium", "heavy"]);

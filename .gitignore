@@ -4,3 +4,6 @@ node_modules/
 .hugo_build.lock
 .wrangler/
 .DS_Store
+
+# Python bytecode from tools/
+__pycache__/

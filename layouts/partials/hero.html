@@ -17,6 +17,8 @@
 
 {{ $img := .Resources.GetMatch "photo.*" }}
 {{ $meta := .Params.image }}
+{{ $render := .Resources.GetMatch "illustration.*" }}
+{{ $rmeta := .Params.illustration }}
 
 {{ if and $img $meta }}
   {{ $jpg := $img.Resize "x560 q82" }}
@@ -31,6 +33,32 @@
     <figcaption>
       Photograph <a href="{{ $meta.source_url }}" rel="noopener">{{ $meta.credit }}</a>,
       <a href="{{ $meta.license_url }}" rel="license noopener">{{ $meta.license }}</a>{{ with $meta.modified }} — {{ . }}{{ end }}
+    </figcaption>
+  </figure>
+
+{{/* An illustration renders only where there is no photograph. A render fills a
+     gap; it never displaces a record, so the photograph branch wins outright.
+
+     The caption carries the disclaimer, not the alt text, because the disclaimer
+     is for every reader and not only the one using a screen reader — and because
+     a caption sits with the picture wherever the picture goes. The references are
+     named for the same reason a photograph names its photographer: so a reader
+     can check what this was made from. */}}
+{{ else if and $render $rmeta }}
+  {{ $r := $render.Resize "x560" }}
+  {{ $rwebp := $render.Resize "x560 webp q80" }}
+  <figure class="page-photo page-illustration">
+    <picture>
+      <source srcset="{{ $rwebp.RelPermalink }}" type="image/webp">
+      <img src="{{ $r.RelPermalink }}"
+           width="{{ $r.Width }}" height="{{ $r.Height }}"
+           alt="{{ $rmeta.alt }}" loading="eager" decoding="async">
+    </picture>
+    <figcaption>
+      <strong>Illustration, not a photograph.</strong> {{ $rmeta.note }}
+      Generated with {{ $rmeta.model }} from
+      {{ range $i, $ref := $rmeta.references }}{{ if $i }}, {{ end }}<a
+        href="{{ $ref.url }}" rel="noopener">{{ $ref.title }}</a> ({{ $ref.license }}){{ end }}.
     </figcaption>
   </figure>
 {{ end }}

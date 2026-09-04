@@ -65,6 +65,14 @@ ASPECT_RANGE = (0.18, 0.60)
 MIN_SOLIDITY = 0.55
 MAX_MEDIAN_CROSSINGS = 2
 
+# Crossings are counted per scanline, so they catch a silhouette that is shredded
+# left-to-right and miss one broken top-to-bottom. A bottle whose clear glass neck
+# keyed away comes back as a capsule floating above a headless body: every scanline
+# still crosses exactly twice, solidity still passes, and the cut is still wrong.
+# A bottle is one piece, so test that directly — the largest connected run of
+# opaque pixels must be substantially all of them.
+MIN_LARGEST_PIECE = 0.97
+
 # Solidity and crossings catch a cut in pieces. Neither catches a cut that is
 # whole but rimmed with surviving ground: the silhouette is perfect and every
 # number passes while the bottle wears a halo. Measure it directly instead —
@@ -172,6 +180,38 @@ def edge_bleed(canvas, ref):
     return (edge - core) / (ref - core)
 
 
+def connectedness(subject):
+    """The share of the cut-out that belongs to its largest connected piece."""
+    small = subject.getchannel("A").resize((300, 600), Image.LANCZOS)
+    w, h = small.size
+    px = small.load()
+    solid = [1 if px[i % w, i // w] > 128 else 0 for i in range(w * h)]
+    total = sum(solid)
+    if not total:
+        return 0.0
+
+    seen = bytearray(w * h)
+    best = 0
+    for start in range(w * h):
+        if not solid[start] or seen[start]:
+            continue
+        size = 0
+        queue = deque([start])
+        seen[start] = 1
+        while queue:
+            i = queue.popleft()
+            size += 1
+            x, y = i % w, i // w
+            for nx, ny in ((x - 1, y), (x + 1, y), (x, y - 1), (x, y + 1)):
+                if 0 <= nx < w and 0 <= ny < h:
+                    j = ny * w + nx
+                    if solid[j] and not seen[j]:
+                        seen[j] = 1
+                        queue.append(j)
+        best = max(best, size)
+    return best / total
+
+
 def normalise(src_path):
     im = ImageOps.exif_transpose(Image.open(src_path))
 
@@ -200,6 +240,16 @@ def normalise(src_path):
             f"outside {ASPECT_RANGE[0]}-{ASPECT_RANGE[1]} — that is not a bottle. "
             f"Either the background survived the cut, or the frame holds a carton "
             f"or a second bottle."
+        )
+
+    largest = connectedness(subject)
+    if largest < MIN_LARGEST_PIECE:
+        raise Refused(
+            f"the cut is in {1 / largest:.1f} pieces — its largest piece holds "
+            f"{largest:.0%} of the cut-out (want {MIN_LARGEST_PIECE:.0%}+). "
+            f"Something that belongs to the bottle keyed away and left the rest "
+            f"floating, usually clear glass in the neck showing the ground through "
+            f"it. A bottle is one piece."
         )
 
     solidity, median_crossings = silhouette(subject)

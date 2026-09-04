@@ -16,6 +16,18 @@ colouring_added: false
 peat_level: unpeated
 flavours: ["sherry", "vanilla"]
 offers: []
+illustration:
+  alt: "A rendered whisky bottle in clear glass holding warm amber spirit, a black capsule over the neck, and a large blank cream label carrying no words or emblem."
+  model: "google/nano-banana"
+  generated: 2026-09-04
+  note: "It shows a bottle of roughly this shape and colour, and nothing more. The label is deliberately blank: no free-licensed photograph of Double Cask exists, so a rendered label would state an expression nobody has verified. The facts on this page come from the cited sources, never from this picture."
+  references:
+    - title: "File:Macallan 12.jpg"
+      url: "https://commons.wikimedia.org/wiki/File:Macallan_12.jpg"
+      license: "CC BY-SA 4.0"
+    - title: "File:The Macallan 12 yo new.png"
+      url: "https://commons.wikimedia.org/wiki/File:The_Macallan_12_yo_new.png"
+      license: "CC BY-SA 4.0"
 sources:
   - title: "The Macallan"
     url: "https://www.themacallan.com"
