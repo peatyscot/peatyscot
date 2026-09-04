@@ -7,7 +7,13 @@
 
      Credit is a visible <figcaption> rather than a title attribute or an alt
      string. CC BY-SA requires attribution the reader can actually see, and a
-     caption is the only place on the page where that is unambiguous. */}}
+     caption is the only place on the page where that is unambiguous.
+
+     `modified` is appended to the same caption when present. A cut-out bottle
+     is an adaptation, and CC BY and CC BY-SA both require that the change be
+     indicated wherever the credit is — saying who took it while staying quiet
+     about having altered it satisfies half a licence. Photographs carried
+     unaltered have no `modified` field and the caption is unchanged. */}}
 
 {{ $img := .Resources.GetMatch "photo.*" }}
 {{ $meta := .Params.image }}
@@ -24,7 +30,7 @@
     </picture>
     <figcaption>
       Photograph <a href="{{ $meta.source_url }}" rel="noopener">{{ $meta.credit }}</a>,
-      <a href="{{ $meta.license_url }}" rel="license noopener">{{ $meta.license }}</a>
+      <a href="{{ $meta.license_url }}" rel="license noopener">{{ $meta.license }}</a>{{ with $meta.modified }} — {{ . }}{{ end }}
     </figcaption>
   </figure>
 {{ end }}
