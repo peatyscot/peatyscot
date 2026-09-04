@@ -33,9 +33,19 @@ HEIGHT_FILL = 0.94     # subject height as a fraction of the canvas
 WIDTH_MAX = 0.90       # a wide bottle scales to width instead
 
 WORK_W = 700           # the mask is computed small, then scaled up: faster, and
-                       # the upscale feathers the edge for free
+                       # the upscale feathers the edge
 STEP = 9               # tolerance against the neighbouring accepted pixel
 BAND = 70              # tolerance against the median edge value, overall
+
+# The upscale does NOT feather for free — it feathers a boundary that is only
+# accurate to WORK_W, so on a 3547px source each mask pixel covers five, and the
+# ramp lands outside the true edge. Those pixels keep their original RGB, which
+# there is part glass and part studio ground, so the bottle ships wearing a pale
+# ragged rim that is invisible against the ground it was shot on and obvious
+# against anything darker. Erode the small mask to pull the boundary inside the
+# bottle and throw the contaminated ring away. Measured on the Ardbeg: the
+# boundary sits 44% of the way from glass to ground uneroded, 17% at 7.
+ERODE = 7              # MinFilter window on the WORK_W mask; 0 disables
 
 # Refusal thresholds, measured against real Commons files. A clean cut of a
 # studio shot keys ~70% of the frame and leaves a subject of aspect ~0.30; a
@@ -54,6 +64,14 @@ ASPECT_RANGE = (0.18, 0.60)
 # crossings 2. Red curtain: 0.13 and 4. Pine ground: 0.46 and 4.
 MIN_SOLIDITY = 0.55
 MAX_MEDIAN_CROSSINGS = 2
+
+# Solidity and crossings catch a cut in pieces. Neither catches a cut that is
+# whole but rimmed with surviving ground: the silhouette is perfect and every
+# number passes while the bottle wears a halo. Measure it directly instead —
+# how far the boundary pixels sit from the body of the bottle, along the line
+# from the bottle towards the ground. 0.0 is a boundary the colour of the
+# subject; 1.0 is a boundary that is simply background.
+MAX_EDGE_BLEED = 0.30
 
 
 class Refused(Exception):
@@ -100,8 +118,10 @@ def background_mask(im):
     keyed = sum(seen) / len(seen)
     mask = Image.frombytes("L", (w, h), bytes(0 if s else 255 for s in seen))
     mask = mask.filter(ImageFilter.MedianFilter(5))          # despeckle
+    if ERODE:
+        mask = mask.filter(ImageFilter.MinFilter(ERODE))     # pull inside the glass
     mask = mask.resize(im.size, Image.LANCZOS)               # and feather
-    return mask.filter(ImageFilter.GaussianBlur(1.2)), keyed
+    return mask.filter(ImageFilter.GaussianBlur(1.2)), keyed, ref
 
 
 def silhouette(subject):
@@ -120,13 +140,45 @@ def silhouette(subject):
     return opaque / (w * len(rows)), crossings[len(crossings) // 2]
 
 
+def luma(rgb):
+    return 0.2126 * rgb[0] + 0.7152 * rgb[1] + 0.0722 * rgb[2]
+
+
+def edge_bleed(canvas, ref):
+    """How far the boundary sits from the bottle, towards the ground it was shot on.
+
+    Reads the first and last opaque pixel of each scanline and compares their
+    luma with the bottle a little further in. Expressed as a fraction of the
+    distance from the body to `ref`, so it does not care whether the ground was
+    lighter or darker than the glass, only whether the ground survived.
+    """
+    px = canvas.load()
+    alpha = canvas.getchannel("A").load()
+    w, h = canvas.size
+    boundary, body = [], []
+    for y in range(40, h - 40, 3):
+        xs = [x for x in range(w) if alpha[x, y] > 200]
+        if len(xs) < 40:
+            continue
+        l, r = xs[0], xs[-1]
+        boundary += [luma(px[l, y]), luma(px[r, y])]
+        body += [luma(px[l + 18, y]), luma(px[r - 18, y]), luma(px[(l + r) // 2, y])]
+    if not boundary:
+        return 0.0
+    edge = sorted(boundary)[len(boundary) // 2]
+    core = sorted(body)[len(body) // 2]
+    if abs(ref - core) < 1:
+        return 0.0
+    return (edge - core) / (ref - core)
+
+
 def normalise(src_path):
     im = ImageOps.exif_transpose(Image.open(src_path))
 
     if im.mode in ("RGBA", "LA") and im.getchannel("A").getextrema()[0] < 255:
-        cut, keyed = im.convert("RGBA"), None   # already cut out elsewhere
+        cut, keyed, ref = im.convert("RGBA"), None, None   # already cut out elsewhere
     else:
-        mask, keyed = background_mask(im.convert("RGB"))
+        mask, keyed, ref = background_mask(im.convert("RGB"))
         if not KEYED_RANGE[0] <= keyed <= KEYED_RANGE[1]:
             raise Refused(
                 f"keyed {keyed:.0%} of the frame, outside "
@@ -176,7 +228,18 @@ def normalise(src_path):
     if any(corners):
         raise Refused(f"canvas corners are not transparent: {corners}")
 
-    return canvas, keyed, subject.size, solidity
+    bleed = None if ref is None else edge_bleed(canvas, ref)
+    if bleed is not None and bleed > MAX_EDGE_BLEED:
+        raise Refused(
+            f"the ground survived as a halo — the boundary sits {bleed:.0%} of "
+            f"the way from the bottle to the background (want "
+            f"{MAX_EDGE_BLEED:.0%} or less). The silhouette is whole, so this "
+            f"will not show against the ground it was shot on; it shows against "
+            f"the site's. Raise ERODE, or source a photograph whose edge is not "
+            f"this soft."
+        )
+
+    return canvas, keyed, subject.size, solidity, bleed
 
 
 def preview(canvas, path):
@@ -212,14 +275,15 @@ def main(argv):
         sys.exit("dest must be a .png — a cut-out in JPEG has no alpha channel")
 
     try:
-        canvas, keyed, size, solidity = normalise(src)
+        canvas, keyed, size, solidity, bleed = normalise(src)
     except Refused as why:
         sys.exit(f"refused: {why}")
 
     canvas.save(dest)
     keyed_note = f"keyed {keyed:.0%}, " if keyed is not None else "already cut out, "
+    bleed_note = "" if bleed is None else f", edge bleed {bleed:.0%}"
     print(f"{dest}: {keyed_note}subject {size[0]}x{size[1]} on "
-          f"{CANVAS[0]}x{CANVAS[1]}, solidity {solidity:.2f}")
+          f"{CANVAS[0]}x{CANVAS[1]}, solidity {solidity:.2f}{bleed_note}")
 
     if "--preview" in argv:
         out = argv[argv.index("--preview") + 1]

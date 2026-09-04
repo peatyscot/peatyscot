@@ -86,10 +86,17 @@ centres on the canvas.
 | `the cut is in pieces` | The ground ran into the glass and the key ate the bottle. Solidity and edge-crossings measure this; size and aspect alone pass a shredded cut, which is how both photographs currently in the repo measured as plausible while being confetti. Find a different photograph — no threshold rescues it. |
 | `that is not a bottle` | The background survived the cut, or there is a carton or second bottle in the frame. |
 | `keyed N% of the frame` | The ground is too close in tone to the bottle to separate at all. |
+| `the ground survived as a halo` | The silhouette is whole but rimmed with background: the mask is computed at `WORK_W` and upscaled, so its boundary lands outside the true edge and those pixels keep RGB that is part glass, part ground. `ERODE` pulls the boundary inside the bottle and normally settles this; the refusal means the photograph's edge is softer than the erosion can absorb. This one is invisible in the source — a pale rim against a pale studio ground — and obvious on the site. |
 
 Then **look at the preview**. It shows the cut-out on a checkerboard and on the site's
 dark ground, because holes and haloes only show against a ground the photograph was not
 shot on. A cut that passes every numeric check can still have a chewed edge.
+
+The numbers to read in the tool's own line: `keyed` near 70%, `solidity` above 0.55, and
+`edge bleed` — how far the boundary sits from the bottle towards the ground, 0% being a
+boundary the colour of the glass and 100% a boundary that is simply background. The Ardbeg
+runs 17%. Anything approaching the 30% limit is worth looking at closely even though it
+passes.
 
 ## 4. Record provenance, and that you modified it
 
